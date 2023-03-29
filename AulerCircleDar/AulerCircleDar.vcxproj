@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AulerCircleDar.cpp" />
     <ClCompile Include="DirectedGraph.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
