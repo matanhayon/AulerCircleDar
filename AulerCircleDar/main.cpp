@@ -38,7 +38,6 @@ void read_input_and_update_graph(Graph& graph) {
     }
 }
 
-
 int main() {
     // Read input and create graph object
     Graph graph;

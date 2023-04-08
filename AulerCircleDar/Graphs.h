@@ -124,7 +124,7 @@ public:
         
         bool isEulerian;
         this->resetVerticesColours();
-        if (this->isStronglyConnectedGraph() && this->inAndOutDegreeEqual())
+        if (this->isStronglyConnectedGraph() && this->isInAndOutDegreeEqual())
             isEulerian = true;
         else
             isEulerian = false;
@@ -133,6 +133,45 @@ public:
             cout << "The graph is Eulerian." << endl;
         else
             cout << "The graph is not Eulerian." << endl;
+    }
+
+    bool isStronglyConnectedGraph()
+    {
+        if (!this->isConnectedGraph())
+            return false;
+        else
+        {
+            Graph transposeGraph;
+            createTransposeGraph(transposeGraph);
+            return transposeGraph.isConnectedGraph();
+        }
+    }
+
+    void createTransposeGraph(Graph& transposeGraph)
+    {
+         // Create the transpose graph
+         transposeGraph.updateData(true, this->num_of_vertices, this->num_of_arcs);
+
+         for (int i = 0; i < this->num_of_vertices; i++)
+         {
+            // For each vertex in the original graph, add all its outgoing edges in the reverse direction
+            Vertex* v = this->vertexes[i];
+            for (auto neighbor : neighborsList[i])
+            {
+               int neighbor_id = neighbor->get_id();
+               transposeGraph.add_arc(neighbor_id, v->get_id());
+            }
+          }   
+    }
+
+    bool isInAndOutDegreeEqual()
+    {
+        for (int i = 0; i < num_of_vertices; i++)
+        {
+            if (vertexes[i]->get_in_degree() != vertexes[i]->get_out_degree())
+                return false;
+        }
+        return true;
     }
 
     // checks if an undirected graph is Euilerian, meaning the graph is connected, and all the degrees are even.
