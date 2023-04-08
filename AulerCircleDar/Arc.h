@@ -1,9 +1,13 @@
 #ifndef arc
 #define arc
+#define NOTVISITED false
+#define VISITED true
+
 #include "Vertex.h"
 #include <iostream>
 #include <vector>
 #include <list>
+
 
 class Arc
 {
@@ -12,7 +16,7 @@ private:
     bool isVisited;
 
 public:
-    Arc(Vertex* i_vertex = nullptr, bool i_isVisited = false)
+    Arc(Vertex* i_vertex = nullptr, bool i_isVisited = NOTVISITED)
     {
         vertex = i_vertex;
         isVisited = i_isVisited;
