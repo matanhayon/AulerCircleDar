@@ -5,7 +5,7 @@
 #include <vector>
 #include <list>
 #include "Vertex.h"
-
+#include "Arc.h"
 
 
 class Graph
@@ -14,7 +14,7 @@ private:
     bool is_directed;
     int num_of_vertices;
     int num_of_arcs;
-    vector<list<Vertex*>> neighborsList;
+    vector<list<Arc>> neighborsList;
     vector<Vertex*> vertexes;
 
 public:
@@ -72,7 +72,7 @@ public:
         return num_of_arcs;
     }
 
-    list<Vertex*> get_neighbors(int vertex) const {
+    list<Arc> get_neighbors(int vertex) const {
         return neighborsList[vertex];
     }
 
@@ -86,9 +86,9 @@ public:
         for (int i = 0; i < num_of_vertices; i++)
         {
             cout << "Vertex " << i + 1 << " neighbors: ";
-            for (Vertex* v : neighborsList[i])
+            for (Arc v : neighborsList[i])
             {
-                cout << v->get_id() << " ";
+                cout << v.getVertex()->get_id() << " ";
             }
             cout << endl;
         }
@@ -109,9 +109,9 @@ public:
         
         for (auto neighbor : neighborsList[id-1]) 
         {
-            if (neighbor->get_colour() == Colour::WHITE)
+            if (neighbor.getVertex()->get_colour() == Colour::WHITE)
             {
-                visit(neighbor);                            //Mark edge?
+                visit(neighbor.getVertex());                            //Mark edge?
             }
         }
         u->set_colour(Colour::BLACK);
@@ -143,6 +143,8 @@ public:
         {
             Graph transposeGraph;
             createTransposeGraph(transposeGraph);
+            cout << "\nTranspose Graph:\n";
+            transposeGraph.printNeightborsList();
             return transposeGraph.isConnectedGraph();
         }
     }
@@ -158,7 +160,7 @@ public:
             Vertex* v = this->vertexes[i];
             for (auto neighbor : neighborsList[i])
             {
-               int neighbor_id = neighbor->get_id();
+               int neighbor_id = neighbor.getVertex()->get_id();
                transposeGraph.add_arc(neighbor_id, v->get_id());
             }
           }   
