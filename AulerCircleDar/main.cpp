@@ -1,19 +1,30 @@
+// this programs checks if a given graph is eulerian, and if so, pronts the euler circle in it.
+// please in put y/n if the graph is directed (y) or not (n)
+// then enter number of vertixes, and number of arcs
+// and then enter all the pairs of arcs (two vertixes)
 #include <iostream>
 #include <vector>
 #include <list>
 #include <stack>
 #include "Vertex.h"
 #include "Graphs.h"
-
 using namespace std;
 
+void read_input_and_update_graph(Graph& graph);
 
-// Function to read input and create graph object
+int main()
+{
+    Graph graph;
+    read_input_and_update_graph(graph);
+    graph.checkEulilerian();
+    return 0;
+}
+
+// this function reads input from the user and create graph object
 void read_input_and_update_graph(Graph& graph) {
     bool is_directed;
     int numOfVertices, numOfArcs;
 
-    // Read input
     char c_is_directed;
     cout << "Is the graph directed: y/n" << endl;
     cin >> c_is_directed;
@@ -32,26 +43,13 @@ void read_input_and_update_graph(Graph& graph) {
         exit(1);
     }
 
-    // Update graph object
     graph.updateData(is_directed, numOfVertices, numOfArcs);
 
-    // Read arcs and add them to graph
+    // read arcs and add them to graph
     for (int i = 0; i < numOfArcs; i++) {
         int from, to;
         cin >> from;
         cin >> to;
         graph.add_arc(from, to);
     }
-}
-
-
-
-int main() {
-    // Read input and create graph object
-    Graph graph;
-    read_input_and_update_graph(graph);
-
-    // Print whether graph is directed or not
-    graph.checkEulilerian();
-    return 0;
 }

@@ -22,18 +22,13 @@ public:
         isVisited = i_isVisited;
     }
 
-    // Getters
-    Vertex* getVertex() const
-    {
-        return vertex;
-    }
+    Vertex* getVertex() const { return vertex; }
 
     bool getIsVisited() const
     {
         return isVisited;
     }
 
-    // Setters
     void setVertex(Vertex* i_vertex)
     {
         vertex = i_vertex;
